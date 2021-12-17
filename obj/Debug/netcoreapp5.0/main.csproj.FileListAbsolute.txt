@@ -1,0 +1,16 @@
+/home/runner/hangman-from-scratch/obj/Debug/netcoreapp5.0/main.csprojAssemblyReference.cache
+/home/runner/hangman-from-scratch/obj/Debug/netcoreapp5.0/main.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/hangman-from-scratch/obj/Debug/netcoreapp5.0/main.AssemblyInfoInputs.cache
+/home/runner/hangman-from-scratch/obj/Debug/netcoreapp5.0/main.AssemblyInfo.cs
+/home/runner/hangman-from-scratch/obj/Debug/netcoreapp5.0/main.csproj.CoreCompileInputs.cache
+/home/runner/hangman-from-scratch/bin/Debug/netcoreapp5.0/main
+/home/runner/hangman-from-scratch/bin/Debug/netcoreapp5.0/main.deps.json
+/home/runner/hangman-from-scratch/bin/Debug/netcoreapp5.0/main.runtimeconfig.json
+/home/runner/hangman-from-scratch/bin/Debug/netcoreapp5.0/main.runtimeconfig.dev.json
+/home/runner/hangman-from-scratch/bin/Debug/netcoreapp5.0/main.dll
+/home/runner/hangman-from-scratch/bin/Debug/netcoreapp5.0/ref/main.dll
+/home/runner/hangman-from-scratch/bin/Debug/netcoreapp5.0/main.pdb
+/home/runner/hangman-from-scratch/obj/Debug/netcoreapp5.0/main.dll
+/home/runner/hangman-from-scratch/obj/Debug/netcoreapp5.0/ref/main.dll
+/home/runner/hangman-from-scratch/obj/Debug/netcoreapp5.0/main.pdb
+/home/runner/hangman-from-scratch/obj/Debug/netcoreapp5.0/main.genruntimeconfig.cache
