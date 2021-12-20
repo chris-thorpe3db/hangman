@@ -8,13 +8,11 @@ class Program {
 
 		// Get word from server, save response body to string
 		string responseString = null;
-		using (var client = new HttpClient())
-		{
+		using (var client = new HttpClient()) {
 			//This is a way of using HttpClient synchronously that doesn't result in deadlocks
     		var response = client.GetAsync("https://random-word-api.herokuapp.com/word?number=1").Result;
 
-    		if (response.IsSuccessStatusCode)
-    		{
+    		if (response.IsSuccessStatusCode) {
     			var responseContent = response.Content; 
 				responseString = responseContent.ReadAsStringAsync().Result;
     		}
