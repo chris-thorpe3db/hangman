@@ -93,7 +93,7 @@ class Program {
 			}
 
 			// See if word contains char at all, subtract incorrect guesses as needed
-			if (wordChosen.Contains(userGuess) == false)
+			if (!wordChosen.Contains(userGuess))
 				guessesLeft -= 1;
 
 			// Convert char array to string so we can compare it to the chosen word
