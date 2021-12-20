@@ -38,14 +38,8 @@ class Program {
     	char[] dashes = new char[wordChosen.Length];
 
 		// Char array for RSTLNE
-		char[] rstlne = new char[] {
-			'r',
-			's',
-			't',
-			'l',
-			'n',
-			'e'
-		};
+
+		string rstlne = "rstlne";
 
     	for (int i = 0; i < wordChosen.Length; i++) {
       		dashes[i] = '-';
