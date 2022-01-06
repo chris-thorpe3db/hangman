@@ -1,3 +1,7 @@
+/*
+This is a hangman program that grabs a word from the internet and has you guess it. More in-depth explanation in ANALYSIS.md
+*/
+
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -5,7 +9,6 @@ using System.Threading.Tasks;
 class Program {
 
 	public static void Main(string[] args) {
-
 		// Get word from server, save response body to string
 		string responseString = null;
 		using (var client = new HttpClient()) {
@@ -31,7 +34,7 @@ class Program {
 		// Define all the variables we need
 		string charBeforeParse = null;
 		int guessesLeft = 10;
-		string dashesToString = null;
+		string dashesToString;
 		char userGuess;
 
 		// Generate dashes, convert to string
@@ -55,7 +58,10 @@ class Program {
 
 		dashesToString = new string(dashes);
 
+		
+        
 		// Prompt user & display dashes, last execution before while loop
+		Console.Clear();
 		Console.WriteLine("Welcome to hangman! \nPlease enter one character at a time, or the entire word. \nThere are no numbers or punctuation. \nYou have already been given the letters RSTLNE. \nTo exit, click the x button on the window, or type CTRL + C at any time. \nGood luck, and have fun!");
 		Console.WriteLine(dashesToString);
 
