@@ -100,3 +100,5 @@ There's one final bit of code outside the while loop that we run if this happens
 If the user has sucessfully guessed the word, show the final word, congratulate the user.
 
 If else, show the final word to the user and say that they ran out of guesses.
+
+You can view the full C# script [here.](https://github.com/ctech9/hangman-redone/blob/main/main.cs)
