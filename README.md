@@ -39,7 +39,7 @@ As long as you:
 
 By downloading and using this software, you agree to this license.
 
-The full license legal text can be found within [LICENSE.md](https://github.com/ctech9/hangman-redone/blob/main/LICENSE).
+The full license legal text can be found within [LICENSE](https://github.com/ctech9/hangman-redone/blob/main/LICENSE).
 
 This software comes with absolutely no liability or warranty.
 
