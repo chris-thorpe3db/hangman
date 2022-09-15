@@ -35,3 +35,9 @@ msbuild.wrn
 
 # Visual Studio 2015
 .vs/
+
+# Replit bullshit
+
+.replit
+replit.nix
+packages.lock.json
