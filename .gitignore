@@ -38,6 +38,6 @@ msbuild.wrn
 
 # Replit bullshit
 
-.replit
+*.replit
 replit.nix
 packages.lock.json
