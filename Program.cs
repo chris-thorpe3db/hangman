@@ -4,22 +4,30 @@ This is a hangman program that grabs a word from the internet and has you guess 
 
 using System;
 using System.Net.Http;
-using System.Xml.Schema;
 
 namespace Hangman {
 	class Program {
 
-		public static void Main(string[] args) {
+		static void Main(string[] args) {
 			// Get word from server, save response body to string
 			string responseString = null;
-			using (var client = new HttpClient()) {
-				//This is a way of using HttpClient synchronously that doesn't result in deadlocks
-				var response = client.GetAsync("https://random-word-api.herokuapp.com/word?number=1").Result;
+			string WordURL = "https://random-word-api.herokuapp.com/word?number=1";
 
-				if (response.IsSuccessStatusCode) {
-					var responseContent = response.Content;
-					responseString = responseContent.ReadAsStringAsync().Result;
+
+            try {
+				using (var client = new HttpClient()) {
+					//This is a way of using HttpClient synchronously that doesn't result in deadlocks
+					var response = client.GetAsync(WordURL).Result;
+
+					if (response.IsSuccessStatusCode) {
+						var responseContent = response.Content;
+						responseString = responseContent.ReadAsStringAsync().Result;
+					}
 				}
+			} catch (Exception e) {
+				Console.WriteLine($"Exception caught! Are you connected to the internet? \n\nDetails:\n{e}\n\nPress any key to quit.");
+				Console.ReadLine();
+				Exit(1);
 			}
 
 			// Define chars to trim
@@ -112,25 +120,33 @@ namespace Hangman {
 			}
 
 			if (dashesToString == wordChosen) {
-				Console.WriteLine("Congratulations! The word was: " + wordChosen + ". You had " + guessesLeft + " incorrect guesses left.");
+				Console.WriteLine("Congratulations! The word was: " + wordChosen + ". You had " + guessesLeft + " incorrect guesses left.\n\nPress any key to exit.");
 			} else if (guessesLeft == 0) {
-				Console.WriteLine("Sorry, you've run out of incorrect guesses. The word was: " + wordChosen + ".");
+				Console.WriteLine("Sorry, you've run out of incorrect guesses. The word was: " + wordChosen + ".\n\nPress any key to exit.");
 			}
+
+			Console.ReadKey();
+
+			Exit(0);
+		}
+
+		public static void Exit(int code) {
+			System.Environment.Exit(code);
 		}
 	}
 
 	[Serializable]
 	public class BadStatusCodeException : Exception {
-		public string StatusCode { get; }
+		public string SiteURL { get; }
 		public BadStatusCodeException() { }
 
 		public BadStatusCodeException(string message)
 			: base(message) { }
 		public BadStatusCodeException(string message, Exception inner)
 			: base(message, inner) { }
-		public BadStatusCodeException(string message, string code)
+		public BadStatusCodeException(string message, string url)
 			: this(message) {
-			StatusCode = code;
+			SiteURL = url;
 		}
 	}
 }
