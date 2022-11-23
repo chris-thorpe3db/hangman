@@ -101,7 +101,8 @@ namespace Hangman {
 				dashesToString = new string(dashes);
 
 				// if guessing is complete or if you've run out of guesses, break loop
-				if (dashesToString == wordChosen || guessesLeft == 0) break;
+				if (dashesToString == wordChosen || guessesLeft == 0)
+					break;
 
 				// Clear console screen
 				Console.Clear();
@@ -115,6 +116,21 @@ namespace Hangman {
 			} else if (guessesLeft == 0) {
 				Console.WriteLine("Sorry, you've run out of incorrect guesses. The word was: " + wordChosen + ".");
 			}
+		}
+	}
+
+	[Serializable]
+	public class BadStatusCodeException : Exception {
+		public string StatusCode { get; }
+		public BadStatusCodeException() { }
+
+		public BadStatusCodeException(string message)
+			: base(message) { }
+		public BadStatusCodeException(string message, Exception inner)
+			: base(message, inner) { }
+		public BadStatusCodeException(string message, string code)
+			: this(message) {
+			StatusCode = code;
 		}
 	}
 }
