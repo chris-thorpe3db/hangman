@@ -134,19 +134,4 @@ namespace Hangman {
 			System.Environment.Exit(code);
 		}
 	}
-
-	[Serializable]
-	public class BadStatusCodeException : Exception {
-		public string SiteURL { get; }
-		public BadStatusCodeException() { }
-
-		public BadStatusCodeException(string message)
-			: base(message) { }
-		public BadStatusCodeException(string message, Exception inner)
-			: base(message, inner) { }
-		public BadStatusCodeException(string message, string url)
-			: this(message) {
-			SiteURL = url;
-		}
-	}
 }
