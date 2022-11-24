@@ -32,10 +32,10 @@ namespace Hangman {
 
 			// Define chars to trim
 			char[] charsToTrim = new char[] {
-			'[',
-			']',
-			'"'
-		};
+				'[',
+				']',
+				'"'
+			};
 
 			// Trim
 			string wordChosen = responseString.Trim(charsToTrim);
@@ -59,9 +59,8 @@ namespace Hangman {
 
 			for (int i = 0; i < wordChosen.Length; i++) {
 				for (int x = 0; x < rstlne.Length; x++) {
-					if (wordChosen[i] == rstlne[x]) {
-						dashes[i] = rstlne[x];
-					}
+					if (wordChosen[i] == rstlne[x])
+						dashes[i] = rstlne[x];			
 				}
 			}
 
