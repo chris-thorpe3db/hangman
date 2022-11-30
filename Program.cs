@@ -5,6 +5,9 @@ This is a hangman program that grabs a word from the internet and has you guess 
 using System;
 using System.Net.Http;
 
+using Hangman;
+using Hangman.Exceptions;
+
 namespace Hangman {
 	class Program {
 
@@ -17,14 +20,19 @@ namespace Hangman {
             try {
 				using (var client = new HttpClient()) {
 					//This is a way of using HttpClient synchronously that doesn't result in deadlocks
-					var response = client.GetAsync(WordURL).Result;
+					HttpResponseMessage response = null;
+					try {
+						response = client.GetAsync(WordURL).Result;
+					} catch (Exception ex) {
+						throw new BadReponseCodeException("Expected HTTP 200 OK using URL " + WordURL);
+					}
 
 					if (response.IsSuccessStatusCode) {
 						var responseContent = response.Content;
 						responseString = responseContent.ReadAsStringAsync().Result;
 					}
 				}
-			} catch (Exception e) {
+			} catch (BadReponseCodeException e) {
 				Console.WriteLine($"Exception caught! Are you connected to the internet? \n\nDetails:\n{e}\n\nPress any key to quit.");
 				Console.ReadLine();
 				Exit(1);
