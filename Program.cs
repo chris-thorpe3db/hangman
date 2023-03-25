@@ -23,7 +23,7 @@ namespace Hangman {
 					HttpResponseMessage response = null;
 					try {
 						response = client.GetAsync(WordURL).Result;
-					} catch (Exception ex) {
+					} catch (Exception) {
 						throw new BadReponseCodeException("Expected HTTP 200 OK using URL " + WordURL);
 					}
 
