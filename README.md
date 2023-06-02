@@ -20,7 +20,7 @@ This program requires the .NET 5.0 Runtime/SDK, as well as a computer capable of
 
 ## Licensing
 
-This software is licensed under a GNU Affero GPL v3.0.
+This software is licensed under GNU GPL v3.0.
 
 This means that you can:
 
@@ -35,7 +35,7 @@ As long as you:
  - Add a copyright and license notice
  - State changes made
  - Disclose the source (this repo)
- - Use the same license (GNU Affero GPL v3.0)
+ - Use the same license (GNU GPL v3.0)
 
 By downloading and using this software, you agree to this license.
 
@@ -45,6 +45,4 @@ This software comes with absolutely no liability or warranty.
 
 An in-depth explanation of how this program operates can be found within [ANALYSIS.md](https://github.com/ctech9/hangman-redone/blob/main/ANALYSIS.md).
 
-Developed online using [Replit](https://www.replit.com/).
-
-This repository and all contents are Copyright © 2022 Christopher Thorpe.
+This repository and all contents are Copyright © 2023 Christopher Thorpe.
