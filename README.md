@@ -10,7 +10,7 @@ Allows the player to enter a whole word, guess letter by letter, or exit the app
 
 ## Prerequisites
 
-This program requires the .NET 5.0 Runtime/SDK, as well as a computer capable of running .NET 5.0.
+This program requires the .NET 7 Runtime/SDK, as well as a computer capable of running .NET 7.
 
 ## Usage
 
