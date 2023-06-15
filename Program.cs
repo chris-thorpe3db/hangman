@@ -17,6 +17,7 @@
 */
 
 using System;
+using System.Globalization;
 using System.Net.Http;
 
 using Hangman;
@@ -94,8 +95,6 @@ namespace Hangman {
 					break;
 				} else if (charBeforeParse == "exit") {
 					Exit(0);
-				} else if (charBeforeParse == "break") { 
-					break;
 				} else if (charBeforeParse.Length != 1) {
 					Console.Clear();
 					Console.WriteLine("Please enter 1 letter!");
