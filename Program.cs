@@ -67,6 +67,7 @@ namespace Hangman {
 			int guessesLeft = 10;
 			string dashesToString;
 			char userGuess;
+			bool containsChar = false;
 
 			// Generate dashes, convert to string
 			char[] dashes = new char[wordChosen.Length];
@@ -99,12 +100,13 @@ namespace Hangman {
 				// Grab user input, check if parsing is possible
 				charBeforeParse = Console.ReadLine();
 
-				// If user enters full word, set dashes equal to chosen word and break
+				// If user enters full word, set dashes equal to chosen word and break;
+				// Exit with code 0 when exit is typed into the prompt
 				if (charBeforeParse == wordChosen) {
 					dashesToString = wordChosen;
 					break;
 				} else if (charBeforeParse == "exit") {
-					System.Environment.Exit(0);
+					Exit(0);
 				} else if (charBeforeParse.Length != 1) {
 					Console.Clear();
 					Console.WriteLine("Please enter 1 letter!");
@@ -118,12 +120,16 @@ namespace Hangman {
 				// Compare guess to every character in selected word
 				for (int i = 0; i < wordChosen.Length; i++) {
 					// If input equal to char of chosen word determined by i, change corresponding char in dashes[]
-					if (wordChosen[i] == userGuess)
+					if (wordChosen[i] == userGuess){
 						dashes[i] = userGuess;
+						containsChar = true;
+					}
+						
+						
 				}
 
 				// See if word contains char at all, subtract incorrect guesses as needed
-				if (!wordChosen.Contains(userGuess))
+				if (!containsChar)
 					guessesLeft -= 1;
 
 				// Convert char array to string so we can compare it to the chosen word
@@ -132,6 +138,8 @@ namespace Hangman {
 				// if guessing is complete or if you've run out of guesses, break loop
 				if (dashesToString == wordChosen || guessesLeft == 0)
 					break;
+
+				containsChar = false;
 
 				// Clear console screen
 				Console.Clear();
