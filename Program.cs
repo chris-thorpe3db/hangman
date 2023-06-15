@@ -94,6 +94,8 @@ namespace Hangman {
 					break;
 				} else if (charBeforeParse == "exit") {
 					Exit(0);
+				} else if (charBeforeParse == "break") { 
+					break;
 				} else if (charBeforeParse.Length != 1) {
 					Console.Clear();
 					Console.WriteLine("Please enter 1 letter!");
@@ -139,6 +141,8 @@ namespace Hangman {
 				Console.WriteLine("Congratulations! The word was: " + wordChosen + ". You had " + guessesLeft + " incorrect guesses left.\n\nPress any key to exit.");
 			} else if (guessesLeft == 0) {
 				Console.WriteLine("Sorry, you've run out of incorrect guesses. The word was: " + wordChosen + ".\n\nPress any key to exit.");
+			} else {
+				Console.WriteLine("If you're seeing this, the program has broken. You win.");
 			}
 
 			Console.ReadKey();

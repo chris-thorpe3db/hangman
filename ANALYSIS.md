@@ -1,10 +1,10 @@
 # Program Function Analysis
 
-The program begins by grabbing the response of the url "https://random-word-api.herokuapp.com/word?number=1". The response is returned as a json object in the form "["word"]". Rather than attempt to parse this object, it is easier and more efficient to just trim off the unnecessary characters using a character array and `string.Trim`. We can store the trimmed string to another string variable, `wordChosen` We now have our word.
+The program begins by grabbing the response of the url "https://random-word-api.herokuapp.com/word?number=1". The response is returned as a json object in the form "`["word"]`". Rather than attempt to parse this object, it is easier and more efficient to just trim off the unnecessary characters using a character array and `string.Trim`. We can store the trimmed string to another string variable, `wordChosen` We now have our word.
 
 To play the game, we need to have placeholder text to represent the words we have not guessed, and we need to change the dashes as the use guesses the letters. Individual characters cannot be changed like `string[x] = 0;` in C#, so the easiest way to accomplish this is using a char array. We can create this using the statement: `char[] dashes = new char[wordChosen.Length];`. However, we cannot compare a char array to a string, so we need to convert it to a string so we can compare it. This is trivial. `string dashesToString = new string(dashes);` We now have our dashes prepared.
 
-Some more things we need to do are define a few variables, like the string we utilize for console input (`charBeforeParse`), the char we use to parse it (`userGuess`), and the incorrect guesses remaining (`guessesLeft`). We'll set everything here to null to avoid any unnecessary exceptions, except for the incorrect guesses remaining integer, which we'll set to 10.
+Some more things we need to do are define a few variables, like the string we utilize for console input (`charBeforeParse`), the char we use to parse it (`userGuess`), the bool that shows if the user has guessed a correct letter (`userGuess`)and the incorrect guesses remaining (`guessesLeft`). We'll set everything here to null to avoid any unnecessary exceptions, except for the incorrect guesses remaining integer, which we'll set to 10, and the `userGuess` bool, which we'll set to false..
 
 The last thing my program does before we begin the while loop is search the word for the characters RSTLNE and replace them as necessary. We can accomplish this using this chunk of code:
 
@@ -48,7 +48,7 @@ if (guessBeforeParse == wordChosen) {
 
 } else if (charBeforeParse == "exit") {
     
-    System.Environment.Exit(0);
+    Exit(0);
 
 } else if (charBeforeParse.Length != 1) {
     
@@ -69,20 +69,22 @@ If the user types exit, exit the program with code 0.
 
 If the user types anything other than the above and the length of the string is not equal to 1, inform the user and loop back.
 
-Now we compute the dashes. We do this in a similar fashion to the RSTLNE method from before.
+Now we compute the dashes. We do this in a similar fashion to the RSTLNE method from before. This is also where we figure out whether or not to subtract from the guesses remaining.
 
 ```cs
 for (int i = 0; i < wordChosen.Length; i++) {
-    if (wordChosen[i] == userGuess) 
+    if (wordChosen[i] == userGuess) {
         dashes[i] = userGuess;
+        userGuess = true;
+    }
 }
 
 dashesToString = new string(dashes);
 ```
 
-To determine whether or not to subtract from the guess count, we check to see whether the user-inputted character exists in the string at all.
+To determine whether or not to subtract from the guess count, we reference the `userGuess` bool from earlier.
 ```cs
-if (!wordChosen.Contains(userGuess)) 
+if (!userGuess) 
     guessesLeft -= 1;
 ```
 
@@ -91,14 +93,22 @@ Now, if the user has run out of guesses *or* the word has been guessed, break.
 if (dashesToString == wordChosen || guessesLeft == 0) break;
 ```
 
-Now we clear the console screen, display the dashes thus far, and display the amount of incorrect guesses left, and loop back because we've reached the end of the while loop.
+Now we clear the console screen, display the dashes thus far, and display the amount of incorrect guesses left, set `userGuess` back to false, and loop back because we've reached the end of the while loop.
 
 But what if the while loop is broken?
 
-There's one final bit of code outside the while loop that we run if this happens.
+There's one final bit of code outside the while loop that we run if this happens:
+
+```cs
+if (dashesToString == wordChosen) {
+	Console.WriteLine("Congratulations! The word was: " + wordChosen + ". You had " + guessesLeft + " incorrect guesses left.\n\nPress any key to exit.");
+} else if (guessesLeft == 0) {
+	Console.WriteLine("Sorry, you've run out of incorrect guesses. The word was: " + wordChosen + ".\n\nPress any key to exit.");
+}
+```
 
 If the user has sucessfully guessed the word, show the final word, congratulate the user.
 
 If else, show the final word to the user and say that they ran out of guesses.
 
-You can view the full C# script [here.](https://github.com/ctech9/hangman-redone/blob/main/main.cs)
+You can view the full C# script [here.](https://github.com/chris-thorpe3db/hangman-redone/blob/main/main.cs)
