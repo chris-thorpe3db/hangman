@@ -25,13 +25,11 @@ using Hangman.Exceptions;
 
 namespace Hangman {
 	class Program {
-
 		static void Main(string[] args) {
-			// Get word from server, save response body to string
 			string responseString = null;
 			string WordURL = "https://random-word-api.herokuapp.com/word?number=1";
 
-
+			// TODO: Add code to handle instance of "Exit"
             try {
 				responseString = HangClient.GetWord(WordURL).Result;
 			} catch (Exception e) {
@@ -40,7 +38,7 @@ namespace Hangman {
 				Exit(1);
 			}
 
-			// Define chars to trim
+			// We trim off unnecessary characters here: it's much faster than attempting to parse the JSON.
 			char[] charsToTrim = new char[] {
 				'[',
 				']',
@@ -57,10 +55,8 @@ namespace Hangman {
 			char userGuess;
 			bool containsChar = false;
 
-			// Generate dashes, convert to string
+			// We use a char array here instead of a string so we have easier control over individual characters
 			char[] dashes = new char[wordChosen.Length];
-
-			// Char array for RSTLNE
 
 			string rstlne = "rstlne";
 
@@ -68,6 +64,7 @@ namespace Hangman {
 				dashes[i] = '-';
 			}
 
+			// Look through char array for any instance of the letters R S T L N or E.
 			for (int i = 0; i < wordChosen.Length; i++) {
 				for (int x = 0; x < rstlne.Length; x++) {
 					if (wordChosen[i] == rstlne[x])
@@ -102,7 +99,7 @@ namespace Hangman {
 					continue;
 				}
 
-				// Parse string to char
+				// Parse string to char: allows us to compare it to individual characters in a string
 				userGuess = char.Parse(charBeforeParse);
 
 				// Compare guess to every character in selected word
@@ -110,10 +107,10 @@ namespace Hangman {
 					// If input equal to char of chosen word determined by i, change corresponding char in dashes[]
 					if (wordChosen[i] == userGuess){
 						dashes[i] = userGuess;
+
+						// If the user guessed correctly, we'll set bool this to true.
 						containsChar = true;
-					}
-						
-						
+					}					
 				}
 
 				// See if word contains char at all, subtract incorrect guesses as needed
@@ -129,9 +126,9 @@ namespace Hangman {
 
 				containsChar = false;
 
-				// Clear console screen
 				Console.Clear();
 
+				// Display word with guesses and tell user how many incorrect guesses they have left
 				Console.WriteLine(dashesToString);
 				Console.WriteLine(guessesLeft + " incorrect guesses left.");
 			}
@@ -141,6 +138,7 @@ namespace Hangman {
 			} else if (guessesLeft == 0) {
 				Console.WriteLine("Sorry, you've run out of incorrect guesses. The word was: " + wordChosen + ".\n\nPress any key to exit.");
 			} else {
+				// This SHOULD never happen unless the end user figures out a way to break the while loop before they've run out of guesses. Should.
 				Console.WriteLine("If you're seeing this, the program has broken. You win.");
 			}
 
