@@ -35,7 +35,7 @@ namespace Hangman {
 				responseString = HangClient.GetWord(WordURL).Result;
 			} catch (Exception e) {
 				Console.WriteLine($"Exception caught! Are you connected to the internet? \n\nDetails:\n{e}\n\nPress any key to quit.");
-				Console.ReadLine();
+				Console.ReadKey();
 				Exit(1);
 			}
 
