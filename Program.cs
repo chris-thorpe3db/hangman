@@ -17,6 +17,7 @@
 */
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
 
@@ -53,6 +54,7 @@ namespace Hangman {
 			int guessesLeft = 10;
 			string dashesToString;
 			char userGuess;
+			List<char> charsGuessed = new List<char>();
 			bool containsChar = false;
 
 			// We use a char array here instead of a string so we have easier control over individual characters
@@ -78,12 +80,14 @@ namespace Hangman {
 
 			// Prompt user & display dashes, last execution before while loop
 			Console.Clear();
-			Console.WriteLine("Welcome to hangman! \nPlease enter one character at a time, or the entire word. \nThere are no numbers or punctuation. \nYou have already been given the letters RSTLNE. \nTo exit, click the x button on the window, or type CTRL + C at any time. \nGood luck, and have fun!");
-			Console.WriteLine(dashesToString);
+			Console.WriteLine("Welcome to hangman! \nPlease enter one character at a time, or the entire word. \nThere are no numbers or punctuation. \nYou have already been given the letters RSTLNE. \nTo exit, click the x button on the window, type \"exit\" into the console, or type CTRL + C at any time. \nGood luck, and have fun!");
+			
 
 			while (true) {
-				// Grab user input, check if parsing is possible
-				charBeforeParse = Console.ReadLine();
+                Console.WriteLine(dashesToString);
+                Console.WriteLine(guessesLeft + " incorrect guesses left.");
+                // Grab user input, check if parsing is possible
+                charBeforeParse = Console.ReadLine();
 
 				// If user enters full word, set dashes equal to chosen word and break;
 				// Exit with code 0 when exit is typed into the prompt
@@ -97,10 +101,15 @@ namespace Hangman {
 					Console.WriteLine("Please enter 1 letter!");
 					// Loop back if parsing not possible
 					continue;
+				} else if (charsGuessed.Contains(char.Parse(charBeforeParse))) {
+					Console.Clear();
+					Console.WriteLine("You've already guessed that letter!");
+					continue;
 				}
 
 				// Parse string to char: allows us to compare it to individual characters in a string
 				userGuess = char.Parse(charBeforeParse);
+				charsGuessed.Add(userGuess);
 
 				// Compare guess to every character in selected word
 				for (int i = 0; i < wordChosen.Length; i++) {
@@ -129,8 +138,7 @@ namespace Hangman {
 				Console.Clear();
 
 				// Display word with guesses and tell user how many incorrect guesses they have left
-				Console.WriteLine(dashesToString);
-				Console.WriteLine(guessesLeft + " incorrect guesses left.");
+				
 			}
 
 			if (dashesToString == wordChosen) {
