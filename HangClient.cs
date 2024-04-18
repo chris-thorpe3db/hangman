@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 namespace Hangman {
     public class HangClient {
 
+        #nullable enable
         public static async Task<string> GetWord(string? url) {
             if (url == null || url == "") {
                 url = "https://random-word-api.herokuapp.com/word?number=1";
             }
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = null;
+            HttpResponseMessage response = new HttpResponseMessage();
             try {
                 response = await client.GetAsync(url);
             } catch (Exception) {
@@ -25,5 +26,6 @@ namespace Hangman {
                 throw new BadReponseCodeException("Expected HTTP 200 OK using URL " + url + " , got " + statusCode);
             }
         }
+        #nullable disable
     }
 }
