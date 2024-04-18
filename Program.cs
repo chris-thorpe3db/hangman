@@ -96,7 +96,7 @@ namespace Hangman {
                 Console.WriteLine(dashesToString);
                 Console.WriteLine(guessesLeft + " incorrect guesses left.");
                 // Grab user input, check if parsing is possible
-                charBeforeParse = Console.ReadLine();
+                charBeforeParse = Console.ReadLine().ToLower();
 
 				// If user enters full word, set dashes equal to chosen word and break;
 				// Exit with code 0 when exit is typed into the prompt
