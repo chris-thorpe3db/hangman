@@ -29,15 +29,20 @@ namespace Hangman {
 		static void Main(string[] args) {
 			string responseString = null;
 			string WordURL = "https://random-word-api.herokuapp.com/word?number=1";
+			bool wordNotExit = false;
+			bool breakpointReached = false;
 
-			// TODO: Add code to handle instance of "Exit"
-            try {
-				responseString = HangClient.GetWord(WordURL).Result;
-			} catch (Exception e) {
-				Console.WriteLine($"Exception caught! Are you connected to the internet? \n\nDetails:\n{e}\n\nPress any key to quit.");
-				Console.ReadKey();
-				Exit(1);
-			}
+            do {
+				try {
+					responseString = HangClient.GetWord(WordURL).Result;
+					if (responseString != "exit") wordNotExit = true;
+				} catch (Exception e) {
+					Console.WriteLine($"Exception caught! Are you connected to the internet? \n\nDetails:\n{e}\n\nPress any key to quit.");
+					Console.ReadKey();
+					Exit(1);
+				}
+			} while (!wordNotExit);
+			
 
 			// We trim off unnecessary characters here: it's much faster than attempting to parse the JSON.
 			char[] charsToTrim = new char[] {
@@ -56,6 +61,7 @@ namespace Hangman {
 			char userGuess;
 			List<char> charsGuessed = new List<char>();
 			bool containsChar = false;
+			bool userWon = false;
 
 			// We use a char array here instead of a string so we have easier control over individual characters
 			char[] dashes = new char[wordChosen.Length];
@@ -75,15 +81,18 @@ namespace Hangman {
 			}
 
 			dashesToString = new string(dashes);
+			charsGuessed.AddRange(rstlne);
 
-
+			breakpointReached = false;
+			
 
 			// Prompt user & display dashes, last execution before while loop
 			Console.Clear();
 			Console.WriteLine("Welcome to hangman! \nPlease enter one character at a time, or the entire word. \nThere are no numbers or punctuation. \nYou have already been given the letters RSTLNE. \nTo exit, click the x button on the window, type \"exit\" into the console, or type CTRL + C at any time. \nGood luck, and have fun!");
 			
 
-			while (true) {
+			while (!breakpointReached) {
+				containsChar = false;
                 Console.WriteLine(dashesToString);
                 Console.WriteLine(guessesLeft + " incorrect guesses left.");
                 // Grab user input, check if parsing is possible
@@ -93,6 +102,7 @@ namespace Hangman {
 				// Exit with code 0 when exit is typed into the prompt
 				if (charBeforeParse == wordChosen) {
 					dashesToString = wordChosen;
+					userWon = true;
 					break;
 				} else if (charBeforeParse == "exit") {
 					Exit(0);
@@ -130,24 +140,22 @@ namespace Hangman {
 				dashesToString = new string(dashes);
 
 				// if guessing is complete or if you've run out of guesses, break loop
-				if (dashesToString == wordChosen || guessesLeft == 0)
-					break;
-
-				containsChar = false;
+				if (dashesToString == wordChosen) {
+					userWon = true;
+					breakpointReached = true;
+				} else if (guessesLeft == 0) {
+					userWon = false;
+					breakpointReached = true;
+				}
 
 				Console.Clear();
-
-				// Display word with guesses and tell user how many incorrect guesses they have left
 				
 			}
 
-			if (dashesToString == wordChosen) {
+			if (userWon) {
 				Console.WriteLine("Congratulations! The word was: " + wordChosen + ". You had " + guessesLeft + " incorrect guesses left.\n\nPress any key to exit.");
-			} else if (guessesLeft == 0) {
-				Console.WriteLine("Sorry, you've run out of incorrect guesses. The word was: " + wordChosen + ".\n\nPress any key to exit.");
 			} else {
-				// This SHOULD never happen unless the end user figures out a way to break the while loop before they've run out of guesses. Should.
-				Console.WriteLine("If you're seeing this, the program has broken. You win.");
+				Console.WriteLine("Sorry, you've run out of incorrect guesses. The word was: " + wordChosen + ".\n\nPress any key to exit.");
 			}
 
 			Console.ReadKey();
