@@ -8,6 +8,8 @@ Grabs words from a web API rather than a built-in array of words. This does mean
 
 Allows the player to enter a whole word, guess letter by letter, or exit the application from the commandline using if-else statements and parsing methods.
 
+Stores previously-guessed characters and doesn't deduct points if the user guesses an already-guessed character.
+
 ## Prerequisites
 
 This program requires the .NET 7 Runtime/SDK, as well as a computer capable of running .NET 7.
