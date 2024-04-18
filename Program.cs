@@ -18,11 +18,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Net.Http;
-
-using Hangman;
-using Hangman.Exceptions;
 
 namespace Hangman {
 	class Program {
