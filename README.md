@@ -1,6 +1,6 @@
 # C# Console Hangman game
 
-### This repo is outdated. You can find a newer version of the game at [https://github.com/chris-thorpe3db/HangmanRedone.git](https://github.com/chris-thorpe3db/HangmanRedone.git).
+### This repo is outdated. You can find a newer version of the game at [https://github.com/chris-thorpe3db/HangmanReworked.git](https://github.com/chris-thorpe3db/HangmanReworked.git).
 
 Hangman is a game where the player guesses a word letter by letter until they have either guessed the word, or run out of letters. Oftentimes this is illustrated by a man hanging from his neck from the gallows, hence the word "Hangman."
 
